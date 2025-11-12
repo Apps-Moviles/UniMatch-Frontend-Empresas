@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unimatch_empresas/views/company_info.dart';
 import 'nav_view.dart';
 
 class CompanyView extends StatelessWidget {
@@ -83,7 +84,12 @@ class CompanyView extends StatelessWidget {
                 ),
                 minimumSize: const Size(180, 40),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const CompanyInfo()),
+                );
+              },
               child: const Text("Modificar perfil", style: TextStyle(color: Colors.black)),
             ),
 
