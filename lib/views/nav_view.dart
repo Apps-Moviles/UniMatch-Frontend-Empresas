@@ -27,7 +27,10 @@ class NavView extends StatelessWidget {
         unselectedItemColor: Colors.white70,
 
         onTap: (index) {
-          if (index == 1) {
+          if (index == 0) {
+            Navigator.pushReplacementNamed(context, "/projects");
+          }
+          else if (index == 1) {
             Navigator.pushReplacementNamed(context, "/calls");
           } else if (index == 2) {
             Navigator.pushReplacementNamed(context, "/company");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unimatch_empresas/views/company_info.dart';
+import 'package:unimatch_empresas/views/projects/projects_view.dart';
 import 'views/landing_view.dart';
 import 'views/login_view.dart';
 import 'views/company_view.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/company': (context) => const CompanyView(),
         '/edit-company': (context) => const CompanyInfo(),
         '/calls': (context) => const CallsView(),
+        '/projects': (context) => const ProjectsView(),
       },
     );
   }
