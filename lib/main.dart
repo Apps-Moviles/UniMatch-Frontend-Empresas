@@ -3,6 +3,7 @@ import 'package:unimatch_empresas/views/company_info.dart';
 import 'views/landing_view.dart';
 import 'views/login_view.dart';
 import 'views/company_view.dart';
+import 'views/calls_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginView(),
         '/company': (context) => const CompanyView(),
         '/edit-company': (context) => const CompanyInfo(),
+        '/calls': (context) => const CallsView(),
       },
     );
   }
