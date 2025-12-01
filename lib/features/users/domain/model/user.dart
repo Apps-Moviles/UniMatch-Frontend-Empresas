@@ -28,11 +28,30 @@ class User {
 
   Map<String, dynamic> toJson() {
     return {
-      if (id != null) 'id': id,
+      if (id != null) 'id': id.toString(),
       'name': name,
       'email': email,
       'password': password,
       'role': role,
     };
   }
+
+  User copyWith({
+    int? id,
+    String? name,
+    String? email,
+    String? password,
+    String? role,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      role: role ?? this.role,
+    );
+  }
+
+
+
 }

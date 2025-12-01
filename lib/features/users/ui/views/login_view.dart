@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
     final success = await viewModel.login(email, password);
 
     if (success) {
-      Navigator.pushReplacementNamed(context, AppRoutes.companyDashboard);
+      Navigator.pushReplacementNamed(context, AppRoutes.myProjects);
     }
   }
 

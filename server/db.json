@@ -41,6 +41,13 @@
       "name": "Felipe Chavez",
       "password": "1234",
       "role": "company"
+    },
+    {
+      "id": "7",
+      "name": "Javier",
+      "email": "com@mail.com",
+      "password": "123",
+      "role": "company"
     }
   ],
   "students": [
@@ -123,6 +130,18 @@
       "rating": 0,
       "sector": "Industria 4.0",
       "userId": 6
+    },
+    {
+      "id": "4",
+      "userId": 7,
+      "companyName": "Com Corp",
+      "sector": "comunicaciones",
+      "location": "Lima",
+      "email": "com@mail.com",
+      "phone": "999555777",
+      "rating": 0,
+      "profilePicture": "",
+      "description": ""
     }
   ],
   "projects": [

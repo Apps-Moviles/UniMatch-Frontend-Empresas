@@ -69,7 +69,7 @@ class LandingView extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      // más adelante iría a RegisterView
+                      Navigator.pushNamed(context, AppRoutes.register);
                     },
                     child: const Text('Register'),
                   ),
