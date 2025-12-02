@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 
 import 'package:unimatch_empresas/shared/ui/widgets/bottom_nav_bar.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../companies/ui/viewmodels/company_view_model.dart';
 import '../../../users/ui/viewmodels/user_view_model.dart';
 import '../../domain/model/project.dart';
@@ -83,8 +84,18 @@ class _CallsViewState extends State<CallsView> {
           itemCount: _callProjects.length,
           itemBuilder: (context, index) {
             final project = _callProjects[index];
-            return CallCard(project: project);
+            return CallCard(
+              project: project,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.callDetail,
+                  arguments: project,
+                );
+              },
+            );
           },
+
         ),
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 1),

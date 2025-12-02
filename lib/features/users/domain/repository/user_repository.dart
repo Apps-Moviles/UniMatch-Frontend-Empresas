@@ -19,4 +19,6 @@ abstract class UserRepository {
 
   /// Opcional: obtener usuario por id.
   Future<User?> getUserById(int id);
+
+  Future<List<User>> getAllUsers();
 }

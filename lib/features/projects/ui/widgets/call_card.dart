@@ -3,8 +3,13 @@ import '../../domain/model/project.dart';
 
 class CallCard extends StatelessWidget {
   final Project project;
+  final VoidCallback? onTap; // 👈 Callback para navegación
 
-  const CallCard({super.key, required this.project});
+  const CallCard({
+    super.key,
+    required this.project,
+    this.onTap,
+  });
 
   String getRelativeTime(DateTime createdAt) {
     final now = DateTime.now();
@@ -22,9 +27,7 @@ class CallCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Más adelante se definirá la ruta al detalle de convocatoria
-      },
+      onTap: onTap, // 👈 Ahora sí es clickeable
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.all(16),
@@ -35,6 +38,7 @@ class CallCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// TÍTULO
             Text(
               project.title,
               style: const TextStyle(
@@ -43,8 +47,11 @@ class CallCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
+
+            /// INFO: POSTULANTES + TIEMPO
             Row(
               children: [
+                /// BADGE: CANTIDAD DE POSTULANTES
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
@@ -60,7 +67,10 @@ class CallCard extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 const SizedBox(width: 12),
+
+                /// FECHA RELATIVA
                 Row(
                   children: [
                     const Icon(Icons.access_time, size: 16, color: Colors.grey),
@@ -73,7 +83,7 @@ class CallCard extends StatelessWidget {
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ],

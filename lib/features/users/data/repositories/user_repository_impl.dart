@@ -73,4 +73,9 @@ class UserRepositoryImpl implements UserRepository {
   Future<User?> getUserById(int id) {
     return _api.getUserById(id);
   }
+
+  @override
+  Future<List<User>> getAllUsers() async {   // 👈 NUEVO
+    return _api.getAllUsers();
+  }
 }

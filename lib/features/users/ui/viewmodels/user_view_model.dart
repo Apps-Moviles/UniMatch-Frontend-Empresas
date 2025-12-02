@@ -12,10 +12,12 @@ class UserViewModel extends ChangeNotifier {
   final _companyRepository = CompanyRepositoryImpl(CompaniesApi());
 
   User? _currentUser;
+  List<User> _users = [];
   bool _isLoading = false;
   String? _errorMessage;
 
   User? get currentUser => _currentUser;
+  List<User> get users => _users;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
@@ -94,6 +96,15 @@ class UserViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
       return false;
+    }
+  }
+
+  Future<void> loadUsers() async {
+    try {
+      _users = await _userRepository.getAllUsers();
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Error al cargar usuarios';
     }
   }
 

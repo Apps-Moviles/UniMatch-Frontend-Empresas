@@ -188,7 +188,7 @@
       "companyId": 4,
       "studentsSelected": [],
       "isFinished": false,
-      "postulants": [],
+      "postulants": [1,2,3],
       "field": "Techxd",
       "budget": 120,
       "createdAt": "2025-12-01",

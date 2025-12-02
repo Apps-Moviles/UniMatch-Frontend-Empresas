@@ -6,8 +6,22 @@ import 'package:http/http.dart' as http;
 import 'package:unimatch_empresas/features/users/domain/model/user.dart';
 import 'package:unimatch_empresas/shared/network/api_client.dart';
 
+import '../../../../shared/network/api_config.dart';
+
 class UsersApi {
-  /// GET /users con filtros opcionales (email, password, role).
+
+  Future<List<User>> getAllUsers() async {
+    final response = await http.get(Uri.parse(baseUrl));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      return data.map((json) => User.fromJson(json)).toList();
+    } else {
+      throw Exception("Error al obtener usuarios");
+    }
+  }
+
+
   Future<List<User>> getUsers({
     String? email,
     String? password,
