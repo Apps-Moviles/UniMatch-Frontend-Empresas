@@ -4,8 +4,16 @@ import '../../../students/domain/model/student.dart';
 class StudentCard extends StatelessWidget {
   final Student student;
   final String studentName;
+  final String studentEmail;
+  final int projectId;   // 👈 NUEVO
 
-  const StudentCard({super.key, required this.student, required this.studentName});
+  const StudentCard({
+    super.key,
+    required this.student,
+    required this.studentName,
+    required this.studentEmail,
+    required this.projectId,  // 👈 NUEVO
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +30,14 @@ class StudentCard extends StatelessWidget {
           // Imagen del estudiante
           CircleAvatar(
             radius: 36,
-            backgroundImage: NetworkImage(student.profilePicture.isNotEmpty
-                ? student.profilePicture
-                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'),
+            backgroundImage: NetworkImage(
+              student.profilePicture.isNotEmpty
+                  ? student.profilePicture
+                  : 'https://cdn-icons-png.flaticon.com/512/149/149071.png',
+            ),
           ),
           const SizedBox(width: 12),
+
           // Info
           Expanded(
             child: Column(
@@ -54,9 +65,20 @@ class StudentCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 4),
+
+                // Botón Ver Más
                 ElevatedButton(
                   onPressed: () {
-                    // Acción "Ver más"
+                    Navigator.pushNamed(
+                      context,
+                      '/postulant_detail',
+                      arguments: {
+                        'student': student,
+                        'userName': studentName,
+                        'userEmail': studentEmail,
+                        'projectId': projectId,  // 👈 OBLIGATORIO
+                      },
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFFFD479),

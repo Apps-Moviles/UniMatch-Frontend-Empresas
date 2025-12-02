@@ -10,6 +10,7 @@ import '../../features/projects/domain/model/project.dart';
 import '../../features/projects/ui/views/call_detail_view.dart';
 import '../../features/projects/ui/views/create_project_view.dart';
 import '../../features/projects/ui/views/edit_project_view.dart';
+import '../../features/projects/ui/views/postulant_detail_view.dart';
 import '../../features/projects/ui/views/project_detail_view.dart';
 import '../../features/users/ui/views/landing_view.dart';
 import '../../features/users/ui/views/register_view.dart';
@@ -50,6 +51,17 @@ class AppNavigation extends StatelessWidget {
         },
 
         AppRoutes.editProfile: (context) => const EditProfileView(),
+
+        AppRoutes.postulantDetail: (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return PostulantDetailView(
+            student: args['student'],
+            userName: args['userName'],
+            userEmail: args['userEmail'],
+            projectId: args['projectId'],
+          );
+        },
+
 
       },
 

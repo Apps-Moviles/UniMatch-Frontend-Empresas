@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../students/domain/model/student.dart';
 import '../../../students/ui/viewmodels/student_view_model.dart';
 import '../../../users/ui/viewmodels/user_view_model.dart';
 import '../../domain/model/project.dart';
 import '../widgets/student_card.dart';
+import '../../../student_postulations/ui/viewmodels/student_postulation_view_model.dart';
+import '../../../projects/ui/viewmodels/project_view_model.dart';
 
 class CallDetailView extends StatefulWidget {
   final Project project;
@@ -29,25 +32,24 @@ class _CallDetailViewState extends State<CallDetailView> {
   void _loadData() {
     final studentVM = Provider.of<StudentViewModel>(context, listen: false);
     final userVM = Provider.of<UserViewModel>(context, listen: false);
+    final postulationVM = Provider.of<StudentPostulationViewModel>(context, listen: false);
 
     Future.wait([
       studentVM.loadStudents(),
       userVM.loadUsers(),
+      postulationVM.loadPostulations(),
     ]).then((_) => _applyFilters());
   }
 
   void _applyFilters() {
     final studentVM = Provider.of<StudentViewModel>(context, listen: false);
-    final userVM = Provider.of<UserViewModel>(context, listen: false);
-
     final postulantIds = widget.project.postulants;
 
     final students = studentVM.students.where((student) {
       final matchesPostulant = postulantIds.contains(student.id);
       final matchesCareer = careerFilter.isEmpty ||
           student.career.toLowerCase().contains(careerFilter.toLowerCase());
-      final matchesRating =
-          ratingFilter == null || student.rating >= ratingFilter!;
+      final matchesRating = ratingFilter == null || student.rating >= ratingFilter!;
       return matchesPostulant && matchesCareer && matchesRating;
     }).toList();
 
@@ -63,6 +65,60 @@ class _CallDetailViewState extends State<CallDetailView> {
       return user.name;
     } catch (_) {
       return 'Nombre desconocido';
+    }
+  }
+
+  String getStudentEmail(int userId) {
+    final userVM = Provider.of<UserViewModel>(context, listen: false);
+    try {
+      final user = userVM.users.firstWhere((u) => u.id == userId);
+      return user.email;
+    } catch (_) {
+      return 'Correo desconocido';
+    }
+  }
+
+  Future<void> _finalizarConvocatoria() async {
+    final postVM = Provider.of<StudentPostulationViewModel>(context, listen: false);
+    final projectVM = Provider.of<ProjectViewModel>(context, listen: false);
+
+    final project = widget.project;
+
+    try {
+      // 1. Rechazar a los no seleccionados
+      for (final postulantId in project.postulants) {
+        if (!project.studentsSelected.contains(postulantId)) {
+          await postVM.rejectPostulation(postulantId, project.id);
+        }
+      }
+
+      // 2. Cambiar estado del proyecto y guardar
+      final updatedProject = Project(
+        id: project.id,
+        title: project.title,
+        description: project.description,
+        field: project.field,
+        status: "activo",
+        studentsSelected: project.studentsSelected,
+        postulants: project.postulants,
+        companyId: project.companyId,
+        budget: project.budget,
+        requirements: project.requirements,
+        createdAt: project.createdAt,
+      );
+
+      await projectVM.updateProject(updatedProject);
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Convocatoria finalizada")),
+        );
+        Navigator.pushNamed(context, AppRoutes.calls);
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error al finalizar: $e")),
+      );
     }
   }
 
@@ -112,8 +168,7 @@ class _CallDetailViewState extends State<CallDetailView> {
                     items: [null, 2.0, 3.0, 4.0, 4.5]
                         .map((rating) => DropdownMenuItem(
                       value: rating,
-                      child: Text(
-                          rating == null ? 'Todas' : '${rating.toString()}+'),
+                      child: Text(rating == null ? 'Todas' : '${rating.toString()}+'),
                     ))
                         .toList(),
                     onChanged: (value) {
@@ -142,15 +197,43 @@ class _CallDetailViewState extends State<CallDetailView> {
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: filteredStudents.isEmpty
-                  ? const Center(child: Text("No hay postulantes que coincidan"))
-                  : ListView.builder(
-                itemCount: filteredStudents.length,
-                itemBuilder: (context, index) {
-                  final student = filteredStudents[index];
-                  final name = getStudentName(student.userId);
-                  return StudentCard(student: student, studentName: name);
-                },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: filteredStudents.isEmpty
+                        ? const Center(child: Text("No hay postulantes que coincidan"))
+                        : ListView.builder(
+                      itemCount: filteredStudents.length,
+                      itemBuilder: (context, index) {
+                        final student = filteredStudents[index];
+                        final name = getStudentName(student.userId);
+                        final email = getStudentEmail(student.userId);
+
+                        return StudentCard(
+                          student: student,
+                          studentName: name,
+                          studentEmail: email,
+                          projectId: widget.project.id,
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: _finalizarConvocatoria,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFD479),
+                        foregroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text("Finalizar convocatoria"),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

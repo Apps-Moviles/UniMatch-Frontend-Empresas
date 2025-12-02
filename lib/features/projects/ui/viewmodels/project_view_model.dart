@@ -60,4 +60,32 @@ class ProjectViewModel extends ChangeNotifier {
     final ids = _projects.map((p) => p.id).toList()..sort();
     return ids.last + 1;
   }
+
+  Future<void> addSelectedStudent(int projectId, int studentId) async {
+    final projectIndex = _projects.indexWhere((p) => p.id == projectId);
+    if (projectIndex == -1) return;
+
+    final project = _projects[projectIndex];
+    if (!project.studentsSelected.contains(studentId)) {
+      final updated = project.copyWith(
+        studentsSelected: [...project.studentsSelected, studentId],
+      );
+      _projects[projectIndex] = updated;
+      notifyListeners();
+    }
+  }
+
+  Future<void> removeSelectedStudent(int projectId, int studentId) async {
+    final projectIndex = _projects.indexWhere((p) => p.id == projectId);
+    if (projectIndex == -1) return;
+
+    final project = _projects[projectIndex];
+    final updatedList = List<int>.from(project.studentsSelected)..remove(studentId);
+    final updated = project.copyWith(
+      studentsSelected: updatedList,
+    );
+    _projects[projectIndex] = updated;
+    notifyListeners();
+  }
+
 }

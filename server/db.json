@@ -17,7 +17,7 @@
     {
       "id": "3",
       "name": "Empresa BioPafi",
-      "email": "bio@company.com",
+      "email": "bio@cmpany.com",
       "password": "123456",
       "role": "company"
     },
@@ -150,9 +150,14 @@
       "title": "Front-End Design Hola",
       "description": "Rediseño completo de la interfaz de nuestra app móvil",
       "companyId": 1,
-      "studentsSelected": [],
+      "studentsSelected": [
+      ],
       "isFinished": false,
-      "postulants": [],
+      "postulants": [
+        1,
+        2,
+        3
+      ],
       "field": "Diseño UI/UX",
       "budget": 210,
       "createdAt": "2025-11-01",
@@ -161,16 +166,18 @@
         "Prototipado",
         "Adobe XD"
       ],
-      "status": "activo"
+      "status": "en revisión"
     },
     {
       "id": "2",
       "title": "Data Project Beta",
       "description": "Análisis de ventas de productos en campañas pasadas",
-      "companyId": 2,
+      "companyId": 1,
       "studentsSelected": [],
       "isFinished": false,
-      "postulants": [],
+      "postulants": [
+        3
+      ],
       "field": "Data Science",
       "budget": 120,
       "createdAt": "2025-11-01",
@@ -179,7 +186,7 @@
         "Pandas",
         "Gráficos"
       ],
-      "status": "activo"
+      "status": "en revisión"
     },
     {
       "id": "3",
@@ -224,24 +231,31 @@
   "studentPostulations": [
     {
       "id": "1",
-      "date": "1762297845199",
+      "studentId": 1,
+      "projectId": 1,
+      "status": "Aceptado",
+      "date": "2025-12-02"
+    },
+    {
+      "id": "4",
+      "studentId": 2,
       "projectId": 1,
       "status": "Pendiente",
-      "studentId": 1
+      "date": "2025-12-02"
     },
     {
       "id": "2",
-      "date": "1762320795888",
+      "studentId": 3,
       "projectId": 2,
       "status": "Pendiente",
-      "studentId": 3
+      "date": "2025-12-02"
     },
     {
       "id": "3",
-      "date": "1762325043418",
+      "studentId": 3,
       "projectId": 1,
       "status": "Pendiente",
-      "studentId": 3
+      "date": "2025-12-02"
     }
   ]
 }
