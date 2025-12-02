@@ -151,6 +151,8 @@
       "description": "Rediseño completo de la interfaz de nuestra app móvil",
       "companyId": 1,
       "studentsSelected": [
+        1,
+        2
       ],
       "isFinished": false,
       "postulants": [
@@ -166,7 +168,7 @@
         "Prototipado",
         "Adobe XD"
       ],
-      "status": "en revisión"
+      "status": "activo"
     },
     {
       "id": "2",
@@ -240,7 +242,7 @@
       "id": "4",
       "studentId": 2,
       "projectId": 1,
-      "status": "Pendiente",
+      "status": "Aceptado",
       "date": "2025-12-02"
     },
     {
@@ -254,7 +256,7 @@
       "id": "3",
       "studentId": 3,
       "projectId": 1,
-      "status": "Pendiente",
+      "status": "Rechazada",
       "date": "2025-12-02"
     }
   ]

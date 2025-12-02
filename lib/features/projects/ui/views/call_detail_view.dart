@@ -82,36 +82,33 @@ class _CallDetailViewState extends State<CallDetailView> {
     final postVM = Provider.of<StudentPostulationViewModel>(context, listen: false);
     final projectVM = Provider.of<ProjectViewModel>(context, listen: false);
 
-    final project = widget.project;
+    // Asegurar que tenemos la versión más reciente del proyecto
+    await projectVM.loadProjects();
+    final project = projectVM.projects.firstWhere((p) => p.id == widget.project.id);
 
     try {
-      // 1. Rechazar a los no seleccionados
+      // 1. Aceptar todos los seleccionados
+      for (final selectedId in project.studentsSelected) {
+        await postVM.acceptPostulation(selectedId, project.id);
+      }
+
+      // 2. Rechazar los no seleccionados
       for (final postulantId in project.postulants) {
         if (!project.studentsSelected.contains(postulantId)) {
           await postVM.rejectPostulation(postulantId, project.id);
         }
       }
 
-      // 2. Cambiar estado del proyecto y guardar
-      final updatedProject = Project(
-        id: project.id,
-        title: project.title,
-        description: project.description,
-        field: project.field,
+      // 3. Actualizar estado del proyecto sin perder la lista
+      final updatedProject = project.copyWith(
         status: "activo",
-        studentsSelected: project.studentsSelected,
-        postulants: project.postulants,
-        companyId: project.companyId,
-        budget: project.budget,
-        requirements: project.requirements,
-        createdAt: project.createdAt,
       );
 
       await projectVM.updateProject(updatedProject);
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Convocatoria finalizada")),
+          const SnackBar(content: Text("Convocatoria finalizada correctamente")),
         );
         Navigator.pushNamed(context, AppRoutes.calls);
       }
@@ -121,6 +118,8 @@ class _CallDetailViewState extends State<CallDetailView> {
       );
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
