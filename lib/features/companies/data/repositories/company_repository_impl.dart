@@ -36,4 +36,9 @@ class CompanyRepositoryImpl implements CompanyRepository {
   Future<List<Company>> getAllCompanies() {
     return _api.getAllCompanies();
   }
+
+  @override
+  Future<Company> updateCompany(Company company) async {
+    return await _api.updateCompany(company);
+  }
 }

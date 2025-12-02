@@ -68,6 +68,7 @@ class _MyProjectsViewState extends State<MyProjectsView> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF5F0E6),
         elevation: 0,
+        centerTitle: true,
         leading: const SizedBox(),
         title: const Text(
           'Mis Proyectos',

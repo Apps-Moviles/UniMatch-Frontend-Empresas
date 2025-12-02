@@ -71,7 +71,7 @@ class _CallsViewState extends State<CallsView> {
         ),
         backgroundColor: const Color(0xFFF5F0E6),
         elevation: 0,
-        centerTitle: false,
+        centerTitle: true,
         leading: const SizedBox(),
       ),
       body: _isLoading

@@ -6,9 +6,15 @@ import 'package:unimatch_empresas/routes/app_navigation/app_navigation.dart';
 import 'features/companies/ui/viewmodels/company_view_model.dart';
 import 'features/projects/ui/viewmodels/project_view_model.dart';
 import 'features/students/ui/viewmodels/student_view_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
-void main() {
+
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     MultiProvider(
       providers: [

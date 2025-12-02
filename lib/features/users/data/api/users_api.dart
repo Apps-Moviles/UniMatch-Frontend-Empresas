@@ -11,7 +11,8 @@ import '../../../../shared/network/api_config.dart';
 class UsersApi {
 
   Future<List<User>> getAllUsers() async {
-    final response = await http.get(Uri.parse(baseUrl));
+    final response = await http.get(Uri.parse('$baseUrl/users'));
+
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -88,4 +89,22 @@ class UsersApi {
 
     return User.fromJson(json);
   }
+
+  Future<User> updateUser(User user) async {
+    final response = await ApiClient.put(
+      '/users/${user.id}',
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(user.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar usuario');
+    }
+
+    final Map<String, dynamic> json =
+    jsonDecode(response.body) as Map<String, dynamic>;
+
+    return User.fromJson(json);
+  }
+
 }

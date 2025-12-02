@@ -140,7 +140,7 @@
       "email": "com@mail.com",
       "phone": "999555777",
       "rating": 0,
-      "profilePicture": "",
+      "profilePicture": "https://firebasestorage.googleapis.com/v0/b/unimatchempresas.firebasestorage.app/o/company_logos%2Fcompany_1764686571117.jpg?alt=media&token=73cff42f-1459-4538-9bf9-cfbe1daa767a",
       "description": ""
     }
   ],
@@ -188,7 +188,11 @@
       "companyId": 4,
       "studentsSelected": [],
       "isFinished": false,
-      "postulants": [1,2,3],
+      "postulants": [
+        1,
+        2,
+        3
+      ],
       "field": "Techxd",
       "budget": 120,
       "createdAt": "2025-12-01",

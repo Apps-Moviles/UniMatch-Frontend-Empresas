@@ -1,6 +1,6 @@
 class Student {
-  final String id;
-  final String userId;
+  final int id;
+  final int userId;
   final String birthdate;
   final String city;
   final String country;
@@ -29,20 +29,25 @@ class Student {
 
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
-      id: json['id'].toString(),
-      userId: json['userId'].toString(),
-      birthdate: json['birthdate'],
-      city: json['city'],
-      country: json['country'],
-      career: json['career'],
-      phoneNumber: json['phoneNumber'],
-      portfolioLink: json['portfolioLink'],
-      aboutMe: json['aboutMe'],
-      rating: (json['rating'] as num).toDouble(),
-      profilePicture: json['profilePicture'],
-      endedProjects: List<int>.from(json['endedProjects']),
+      id: int.parse(json['id'].toString()),
+      userId: json['userId'],
+      birthdate: json['birthdate'] ?? '',
+      city: json['city'] ?? '',
+      country: json['country'] ?? '',
+      career: json['career'] ?? '',
+      phoneNumber: json['phoneNumber'] ?? '',
+      portfolioLink: json['portfolioLink'] ?? '',
+      aboutMe: json['aboutMe'] ?? '',
+      rating: json['rating'] is int
+          ? (json['rating'] as int).toDouble()
+          : (json['rating'] as num).toDouble(),
+      profilePicture: json['profilePicture'] ?? '',
+      endedProjects: (json['endedProjects'] as List<dynamic>? ?? [])
+          .map((e) => int.tryParse(e.toString()) ?? 0)
+          .toList(),
     );
   }
+
 
   Map<String, dynamic> toJson() {
     return {

@@ -47,4 +47,19 @@ class CompaniesApi {
         .map((item) => Company.fromJson(item as Map<String, dynamic>))
         .toList();
   }
+
+  Future<Company> updateCompany(Company company) async {
+    final response = await ApiClient.put(
+      '/companies/${company.id}',
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(company.toJson()),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar compañía');
+    }
+
+    return Company.fromJson(jsonDecode(response.body));
+  }
+
 }

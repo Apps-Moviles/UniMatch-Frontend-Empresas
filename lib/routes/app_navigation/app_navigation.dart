@@ -5,6 +5,7 @@ import 'package:unimatch_empresas/routes/app_routes.dart';
 import 'package:unimatch_empresas/features/users/ui/views/login_view.dart';
 import 'package:unimatch_empresas/features/projects/ui/views/my_projects_view.dart';
 
+import '../../features/companies/ui/views/edit_profile_view.dart';
 import '../../features/projects/domain/model/project.dart';
 import '../../features/projects/ui/views/call_detail_view.dart';
 import '../../features/projects/ui/views/create_project_view.dart';
@@ -48,9 +49,11 @@ class AppNavigation extends StatelessWidget {
           return CallDetailView(project: project);
         },
 
+        AppRoutes.editProfile: (context) => const EditProfileView(),
+
       },
 
-      // Luego podemos configurar theme global aquí
+
     );
   }
 }

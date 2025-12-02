@@ -72,6 +72,15 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
         backgroundColor: const Color(0xFFF5F0E6),
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
+        title: Text(
+          project.title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        centerTitle: true,
       ),
       bottomNavigationBar: const BottomNavBar(currentIndex: 0),
       body: Padding(
@@ -80,15 +89,6 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                project.title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 12),
-
               const Text('Descripción:',
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16)),
               Text(project.description),
@@ -132,8 +132,8 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       foregroundColor: Colors.white,
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                     ),
                     child: const Text('Eliminar'),
                   ),
@@ -142,8 +142,8 @@ class _ProjectDetailViewState extends State<ProjectDetailView> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFFD479),
                       foregroundColor: Colors.black,
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
                     ),
                     child: const Text('Editar'),
                   ),

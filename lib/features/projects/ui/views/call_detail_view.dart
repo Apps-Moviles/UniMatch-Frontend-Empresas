@@ -29,19 +29,21 @@ class _CallDetailViewState extends State<CallDetailView> {
   void _loadData() {
     final studentVM = Provider.of<StudentViewModel>(context, listen: false);
     final userVM = Provider.of<UserViewModel>(context, listen: false);
+
     Future.wait([
       studentVM.loadStudents(),
-      userVM.loadUsers()
+      userVM.loadUsers(),
     ]).then((_) => _applyFilters());
   }
 
   void _applyFilters() {
     final studentVM = Provider.of<StudentViewModel>(context, listen: false);
+    final userVM = Provider.of<UserViewModel>(context, listen: false);
 
     final postulantIds = widget.project.postulants;
 
     final students = studentVM.students.where((student) {
-      final matchesPostulant = postulantIds.contains(student.id.toString());
+      final matchesPostulant = postulantIds.contains(student.id);
       final matchesCareer = careerFilter.isEmpty ||
           student.career.toLowerCase().contains(careerFilter.toLowerCase());
       final matchesRating =
@@ -54,21 +56,15 @@ class _CallDetailViewState extends State<CallDetailView> {
     });
   }
 
-  String getStudentName(String? userId) {
+  String getStudentName(int userId) {
     final userVM = Provider.of<UserViewModel>(context, listen: false);
-
     try {
-      final id = int.tryParse(userId ?? "");
-      if (id == null) return 'Nombre desconocido';
-
-      final user = userVM.users.firstWhere((u) => u.id == id);
+      final user = userVM.users.firstWhere((u) => u.id == userId);
       return user.name;
-    } catch (e) {
+    } catch (_) {
       return 'Nombre desconocido';
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,21 +73,21 @@ class _CallDetailViewState extends State<CallDetailView> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF5F0E6),
         elevation: 0,
-        leading: BackButton(color: Colors.black),
+        leading: const BackButton(color: Colors.black),
+        title: Text(
+          widget.project.title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.project.title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -116,9 +112,8 @@ class _CallDetailViewState extends State<CallDetailView> {
                     items: [null, 2.0, 3.0, 4.0, 4.5]
                         .map((rating) => DropdownMenuItem(
                       value: rating,
-                      child: Text(rating == null
-                          ? 'Todas'
-                          : '${rating.toString()}+'),
+                      child: Text(
+                          rating == null ? 'Todas' : '${rating.toString()}+'),
                     ))
                         .toList(),
                     onChanged: (value) {

@@ -33,4 +33,17 @@ class CompanyViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> updateCompany(Company updatedCompany) async {
+    try {
+      await _companyRepository.updateCompany(updatedCompany);
+      await loadCompanies(); // recarga para reflejar cambios
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Error al actualizar la compañía';
+      notifyListeners();
+    }
+  }
+
+
 }

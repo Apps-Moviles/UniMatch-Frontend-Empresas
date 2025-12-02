@@ -24,7 +24,7 @@ class StudentCard extends StatelessWidget {
             radius: 36,
             backgroundImage: NetworkImage(student.profilePicture.isNotEmpty
                 ? student.profilePicture
-                : 'https://i.ibb.co/TgFvYzX/default-profile.png'),
+                : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'),
           ),
           const SizedBox(width: 12),
           // Info

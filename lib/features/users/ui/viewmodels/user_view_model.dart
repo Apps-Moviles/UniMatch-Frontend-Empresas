@@ -117,4 +117,20 @@ class UserViewModel extends ChangeNotifier {
     _errorMessage = null;
     notifyListeners();
   }
+
+  Future<void> updateUser(User updatedUser) async {
+    try {
+      await _userRepository.updateUser(updatedUser);
+      // Actualiza el usuario actual si coincide
+      if (_currentUser?.id == updatedUser.id) {
+        _currentUser = updatedUser;
+      }
+      await loadUsers(); // recarga la lista por si hay vistas que lo usan
+      notifyListeners();
+    } catch (e) {
+      _errorMessage = 'Error al actualizar el usuario';
+      notifyListeners();
+    }
+  }
+
 }
