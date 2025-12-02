@@ -180,6 +180,41 @@
         "Gráficos"
       ],
       "status": "activo"
+    },
+    {
+      "id": "3",
+      "title": "holaxd",
+      "description": "mal pagaxd",
+      "companyId": 4,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [],
+      "field": "Techxd",
+      "budget": 120,
+      "createdAt": "2025-12-01",
+      "requirements": [
+        "ff",
+        "dd",
+        "ddd"
+      ],
+      "status": "en revisión"
+    },
+    {
+      "id": "4",
+      "title": "ddd",
+      "description": "ddd",
+      "companyId": 4,
+      "studentsSelected": [],
+      "isFinished": false,
+      "postulants": [],
+      "field": "asdas",
+      "budget": 143,
+      "createdAt": "2025-12-01",
+      "requirements": [
+        "asa",
+        "ddd"
+      ],
+      "status": "en revisión"
     }
   ],
   "studentPostulations": [

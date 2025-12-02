@@ -4,6 +4,7 @@ import 'package:unimatch_empresas/features/users/ui/viewmodels/user_view_model.d
 import 'package:unimatch_empresas/routes/app_navigation/app_navigation.dart';
 
 import 'features/companies/ui/viewmodels/company_view_model.dart';
+import 'features/projects/ui/viewmodels/project_view_model.dart';
 
 void main() {
   runApp(
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => CompanyViewModel()),
+        ChangeNotifierProvider(create: (_) => ProjectViewModel()),
       ],
       child: const AppNavigation(),
     ),

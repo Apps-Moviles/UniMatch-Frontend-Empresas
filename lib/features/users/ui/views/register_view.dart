@@ -38,7 +38,7 @@ class _RegisterViewState extends State<RegisterView> {
             child: Column(
               children: [
                 const SizedBox(height: 32),
-                Image.asset('assets/logo_unimatch_claro.png', height: 100),
+                Image.asset('assets/images/logo_unimatch_claro.png', height: 100),
                 const SizedBox(height: 16),
                 _buildTextField(nameController, 'Nombre'),
                 _buildTextField(emailController, 'Email'),

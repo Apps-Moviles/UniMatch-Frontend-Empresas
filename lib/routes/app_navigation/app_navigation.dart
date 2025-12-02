@@ -5,6 +5,10 @@ import 'package:unimatch_empresas/routes/app_routes.dart';
 import 'package:unimatch_empresas/features/users/ui/views/login_view.dart';
 import 'package:unimatch_empresas/features/projects/ui/views/my_projects_view.dart';
 
+import '../../features/projects/domain/model/project.dart';
+import '../../features/projects/ui/views/create_project_view.dart';
+import '../../features/projects/ui/views/edit_project_view.dart';
+import '../../features/projects/ui/views/project_detail_view.dart';
 import '../../features/users/ui/views/landing_view.dart';
 import '../../features/users/ui/views/register_view.dart';
 
@@ -26,6 +30,17 @@ class AppNavigation extends StatelessWidget {
         AppRoutes.register: (context) => const RegisterView(),
         AppRoutes.calls: (context) => const CallsView(),
         AppRoutes.profile: (context) => const ProfileView(),
+        AppRoutes.createProject: (context) => const CreateProjectView(),
+
+        AppRoutes.projectDetail: (context) {
+          final project = ModalRoute.of(context)!.settings.arguments as Project;
+          return ProjectDetailView(project: project);
+        },
+
+        AppRoutes.editProject: (context) {
+          final project = ModalRoute.of(context)!.settings.arguments as Project;
+          return EditProjectView(project: project);
+        },
 
       },
 
