@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../routes/app_routes.dart';
+import '../../../../shared/ui/widgets/bottom_nav_bar.dart';
 import '../../../students/domain/model/student.dart';
 import '../../../students/ui/viewmodels/student_view_model.dart';
 import '../../../users/ui/viewmodels/user_view_model.dart';
@@ -82,28 +83,21 @@ class _CallDetailViewState extends State<CallDetailView> {
     final postVM = Provider.of<StudentPostulationViewModel>(context, listen: false);
     final projectVM = Provider.of<ProjectViewModel>(context, listen: false);
 
-    // Asegurar que tenemos la versión más reciente del proyecto
     await projectVM.loadProjects();
     final project = projectVM.projects.firstWhere((p) => p.id == widget.project.id);
 
     try {
-      // 1. Aceptar todos los seleccionados
       for (final selectedId in project.studentsSelected) {
         await postVM.acceptPostulation(selectedId, project.id);
       }
 
-      // 2. Rechazar los no seleccionados
       for (final postulantId in project.postulants) {
         if (!project.studentsSelected.contains(postulantId)) {
           await postVM.rejectPostulation(postulantId, project.id);
         }
       }
 
-      // 3. Actualizar estado del proyecto sin perder la lista
-      final updatedProject = project.copyWith(
-        status: "activo",
-      );
-
+      final updatedProject = project.copyWith(status: "activo");
       await projectVM.updateProject(updatedProject);
 
       if (context.mounted) {
@@ -118,8 +112,6 @@ class _CallDetailViewState extends State<CallDetailView> {
       );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +131,10 @@ class _CallDetailViewState extends State<CallDetailView> {
         ),
         centerTitle: true,
       ),
+
+      // ⭐ AGREGADO: Bottom Navigation Bar
+      bottomNavigationBar: const BottomNavBar(currentIndex: 1),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

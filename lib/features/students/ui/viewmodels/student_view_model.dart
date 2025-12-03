@@ -23,6 +23,10 @@ class StudentViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Student?> getStudentById(String id) async {
+    return await _repository.getStudentById(id);
+  }
+
   Future<void> createStudent(Student student) async {
     final newStudent = await _repository.createStudent(student);
     _students.add(newStudent);
@@ -31,6 +35,7 @@ class StudentViewModel extends ChangeNotifier {
 
   Future<void> updateStudent(Student student) async {
     await _repository.updateStudent(student);
+
     final index = _students.indexWhere((s) => s.id == student.id);
     if (index != -1) {
       _students[index] = student;

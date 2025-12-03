@@ -12,6 +12,7 @@ import '../../features/projects/ui/views/create_project_view.dart';
 import '../../features/projects/ui/views/edit_project_view.dart';
 import '../../features/projects/ui/views/postulant_detail_view.dart';
 import '../../features/projects/ui/views/project_detail_view.dart';
+import '../../features/reputations/ui/views/student_reputations_view.dart';
 import '../../features/users/ui/views/landing_view.dart';
 import '../../features/users/ui/views/register_view.dart';
 
@@ -61,6 +62,15 @@ class AppNavigation extends StatelessWidget {
             projectId: args['projectId'],
           );
         },
+
+        AppRoutes.studentReputations: (context) {
+          final int studentId =
+          ModalRoute.of(context)!.settings.arguments as int;
+
+          return StudentReputationsView(studentId: studentId);
+        },
+
+
 
 
       },

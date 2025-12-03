@@ -5,9 +5,14 @@ import 'package:unimatch_empresas/routes/app_navigation/app_navigation.dart';
 
 import 'features/companies/ui/viewmodels/company_view_model.dart';
 import 'features/projects/ui/viewmodels/project_view_model.dart';
+import 'features/reputations/data/api/reputation_api.dart';
+import 'features/reputations/data/repository/reputation_repository_impl.dart';
+import 'features/reputations/ui/viewmodels/reputation_view_model.dart';
 import 'features/student_postulations/data/api/student_postulation_api.dart';
 import 'features/student_postulations/data/repositories/student_postulation_repository_impl.dart';
 import 'features/student_postulations/ui/viewmodels/student_postulation_view_model.dart';
+import 'features/students/data/api/student_api.dart';
+import 'features/students/data/repository/student_repository_impl.dart';
 import 'features/students/ui/viewmodels/student_view_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -33,6 +38,14 @@ void main() async {
             ),
           ),
         ),
+
+        ChangeNotifierProvider(
+          create: (_) => ReputationViewModel(
+            ReputationRepositoryImpl(ReputationApi()),
+            StudentRepositoryImpl(StudentApi()),
+          ),
+        ),
+
 
       ],
       child: const AppNavigation(),

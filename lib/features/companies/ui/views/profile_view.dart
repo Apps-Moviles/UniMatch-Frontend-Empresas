@@ -113,7 +113,7 @@ class ProfileView extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(context, AppRoutes.landing, (route) => false);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
+                backgroundColor: const Color(0xFF1C1F2B),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               ),

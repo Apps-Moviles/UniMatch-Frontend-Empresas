@@ -13,5 +13,6 @@ class AppRoutes {
   static const String callDetail = '/call_detail';
   static const String editProfile = '/edit-profile';
   static const String postulantDetail = '/postulant_detail';
+  static const String studentReputations = '/student_reputations';
 
 }

@@ -6,6 +6,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../../shared/ui/widgets/bottom_nav_bar.dart';
 import 'package:unimatch_empresas/routes/app_routes.dart';
 import '../../../companies/domain/model/company.dart';
 import '../../../companies/ui/viewmodels/company_view_model.dart';
@@ -27,7 +28,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   late TextEditingController emailController;
   late TextEditingController phoneController;
 
-  String? _imageUrl;   // ← ahora guardará URL pública
+  String? _imageUrl;
   File? _selectedImage;
 
   @override
@@ -73,16 +74,15 @@ class _EditProfileViewState extends State<EditProfileView> {
     super.dispose();
   }
 
-  // -----------------------------------------------------------
-  // PICK IMAGE
-  // -----------------------------------------------------------
+  // ---------------------
+  // IMAGE PICKER
+  // ---------------------
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: ImageSource.gallery);
 
     if (picked == null) return;
 
-    // Comprimir la imagen
     final compressedBytes = await FlutterImageCompress.compressWithFile(
       picked.path,
       quality: 70,
@@ -90,7 +90,6 @@ class _EditProfileViewState extends State<EditProfileView> {
 
     if (compressedBytes == null) return;
 
-    // Guardar temporalmente para subir
     final file = File(picked.path);
 
     setState(() {
@@ -100,7 +99,8 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   Future<String?> _uploadToFirebase(File image) async {
     try {
-      final fileName = "company_${DateTime.now().millisecondsSinceEpoch}${path.extension(image.path)}";
+      final fileName =
+          "company_${DateTime.now().millisecondsSinceEpoch}${path.extension(image.path)}";
 
       final ref = FirebaseStorage.instance
           .ref()
@@ -134,6 +134,10 @@ class _EditProfileViewState extends State<EditProfileView> {
         ),
         centerTitle: true,
       ),
+
+      // ⭐ Bottom Navigation Bar agregado
+      bottomNavigationBar: const BottomNavBar(currentIndex: 2),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -176,7 +180,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: const Color(0xFF1C1F2B),
                     foregroundColor: Colors.white,
                   ),
                   child: const Text('Cancelar'),
@@ -186,7 +190,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                   onPressed: () async {
                     String? finalImageUrl = _imageUrl;
 
-                    // Si el usuario seleccionó una nueva imagen → subirla
                     if (_selectedImage != null) {
                       final uploadedUrl =
                       await _uploadToFirebase(_selectedImage!);
@@ -195,7 +198,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                       }
                     }
 
-                    // Actualizar USER
                     final updatedUser = User(
                       id: user!.id,
                       name: nameController.text,
@@ -204,11 +206,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                       role: user.role,
                     );
 
-                    // Actualizar COMPANY
-                    final updatedCompany =
-                    companyVM.companies.firstWhere(
-                          (c) => c.userId == user.id,
-                    ).copyWith(
+                    final updatedCompany = companyVM.companies
+                        .firstWhere((c) => c.userId == user.id)
+                        .copyWith(
                       companyName: companyNameController.text,
                       location: locationController.text,
                       sector: sectorController.text,

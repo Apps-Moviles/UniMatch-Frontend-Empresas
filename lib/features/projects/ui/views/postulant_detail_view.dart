@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../../routes/app_routes.dart';
+import '../../../../shared/ui/widgets/bottom_nav_bar.dart';
 import '../../../students/domain/model/student.dart';
 import '../../../projects/ui/viewmodels/project_view_model.dart';
 import '../../../student_postulations/ui/viewmodels/student_postulation_view_model.dart';
@@ -27,11 +29,16 @@ class PostulantDetailView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F0E6),
+
       appBar: AppBar(
         backgroundColor: const Color(0xFFF5F0E6),
         elevation: 0,
         leading: const BackButton(color: Colors.black),
       ),
+
+      // ⭐ AGREGADO: Bottom Navigation Bar
+      bottomNavigationBar: const BottomNavBar(currentIndex: 1),
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(22),
         child: Column(
@@ -87,30 +94,34 @@ class PostulantDetailView extends StatelessWidget {
                 onPressed: alreadyAccepted
                     ? null
                     : () async {
-                  final postVM = Provider.of<StudentPostulationViewModel>(context, listen: false);
+                  final postVM = Provider.of<StudentPostulationViewModel>(
+                      context,
+                      listen: false);
 
                   try {
-                    // Paso 1: Aceptar la postulación
                     await postVM.acceptPostulation(student.id, projectId);
 
-                    // Paso 2: Añadir studentId al studentsSelected del proyecto
                     project.studentsSelected.add(student.id);
                     await projectVM.updateProject(project);
 
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Postulante aceptado correctamente")),
+                        const SnackBar(
+                            content:
+                            Text("Postulante aceptado correctamente")),
                       );
-                      Navigator.pop(context); // volver a la vista anterior
+                      Navigator.pop(context);
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Error al aceptar: $e")),
+                      SnackBar(
+                          content: Text("Error al aceptar: $e")),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: alreadyAccepted ? Colors.grey : const Color(0xFFFFD479),
+                  backgroundColor:
+                  alreadyAccepted ? Colors.grey : const Color(0xFFFFD479),
                   foregroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -122,13 +133,19 @@ class PostulantDetailView extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // BOTÓN VER RESEÑAS (a implementar luego)
+            // ⭐ BOTÓN VER RESEÑAS
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.studentReputations,
+                    arguments: student.id,
+                  );
+                },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: const Color(0xFF1C1F2B),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

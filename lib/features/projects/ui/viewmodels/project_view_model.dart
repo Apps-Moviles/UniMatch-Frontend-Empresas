@@ -88,4 +88,13 @@ class ProjectViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Project? getProjectById(int id) {
+    try {
+      return _projects.firstWhere((p) => p.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+
 }

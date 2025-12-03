@@ -45,5 +45,14 @@ class CompanyViewModel extends ChangeNotifier {
     }
   }
 
+  Company? getCompanyById(int id) {
+    try {
+      return _companies.firstWhere((c) => c.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+
 
 }

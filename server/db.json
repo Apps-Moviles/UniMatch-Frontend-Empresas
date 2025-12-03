@@ -17,7 +17,7 @@
     {
       "id": "3",
       "name": "Empresa BioPafi",
-      "email": "bio@cmpany.com",
+      "email": "bio@company.com",
       "password": "123456",
       "role": "company"
     },
@@ -61,9 +61,11 @@
       "phoneNumber": "987654321",
       "portfolioLink": "",
       "aboutMe": "",
-      "rating": 4.5,
+      "rating": 3,
       "profilePicture": "",
-      "endedProjects": []
+      "endedProjects": [
+        1
+      ]
     },
     {
       "id": "2",
@@ -75,9 +77,11 @@
       "phoneNumber": "912345678",
       "portfolioLink": "",
       "aboutMe": "",
-      "rating": 4.2,
+      "rating": 1,
       "profilePicture": "",
-      "endedProjects": []
+      "endedProjects": [
+        1
+      ]
     },
     {
       "aboutMe": "",
@@ -168,7 +172,7 @@
         "Prototipado",
         "Adobe XD"
       ],
-      "status": "activo"
+      "status": "finalizado"
     },
     {
       "id": "2",
@@ -258,6 +262,24 @@
       "projectId": 1,
       "status": "Rechazada",
       "date": "2025-12-02"
+    }
+  ],
+  "reputations": [
+    {
+      "id": "1",
+      "studentId": 1,
+      "projectId": 1,
+      "rating": 3,
+      "comment": "Buena trabajador",
+      "type": 1
+    },
+    {
+      "id": "2",
+      "studentId": 2,
+      "projectId": 1,
+      "rating": 1,
+      "comment": "no chambeo",
+      "type": 1
     }
   ]
 }

@@ -65,4 +65,35 @@ class Student {
       'endedProjects': endedProjects,
     };
   }
+
+  Student copyWith({
+    int? id,
+    int? userId,
+    String? birthdate,
+    String? city,
+    String? country,
+    String? career,
+    String? phoneNumber,
+    String? portfolioLink,
+    String? aboutMe,
+    double? rating,
+    String? profilePicture,
+    List<int>? endedProjects,
+  }) {
+    return Student(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      birthdate: birthdate ?? this.birthdate,
+      city: city ?? this.city,
+      country: country ?? this.country,
+      career: career ?? this.career,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      portfolioLink: portfolioLink ?? this.portfolioLink,
+      aboutMe: aboutMe ?? this.aboutMe,
+      rating: rating ?? this.rating,
+      profilePicture: profilePicture ?? this.profilePicture,
+      endedProjects: endedProjects ?? this.endedProjects,
+    );
+  }
+
 }
