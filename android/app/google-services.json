@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "782590916368",
-    "project_id": "unimatchempresas",
-    "storage_bucket": "unimatchempresas.firebasestorage.app"
+    "project_number": "130996671558",
+    "project_id": "unimatchempresassdk",
+    "storage_bucket": "unimatchempresassdk.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:782590916368:android:dec5d324b450a227411795",
+        "mobilesdk_app_id": "1:130996671558:android:b6c93ae013a271bacaa647",
         "android_client_info": {
           "package_name": "com.example.unimatch_empresas"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDhsgXwLpnDP2rpcbn7MhYXUMV4tZ-pV40"
+          "current_key": "AIzaSyDWXWjZCjgxV7aN6VrhQrH1FvCF7XJR_Ro"
         }
       ],
       "services": {

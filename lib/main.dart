@@ -14,14 +14,16 @@ import 'features/student_postulations/ui/viewmodels/student_postulation_view_mod
 import 'features/students/data/api/student_api.dart';
 import 'features/students/data/repository/student_repository_impl.dart';
 import 'features/students/ui/viewmodels/student_view_model.dart';
+
 import 'package:firebase_core/firebase_core.dart';
-
-
+import 'firebase_options.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(
     MultiProvider(
@@ -45,8 +47,6 @@ void main() async {
             StudentRepositoryImpl(StudentApi()),
           ),
         ),
-
-
       ],
       child: const AppNavigation(),
     ),
